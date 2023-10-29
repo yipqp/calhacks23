@@ -9,7 +9,7 @@ interface DiaryEntryProps {
 
 const DiaryEntry = ({ photoURL, title, rating, caption }: DiaryEntryProps) => {
   return (
-    <div className="bg-white flex flex-col lg:flex-row border border-gray-200 rounded-lg border-2 border-black p-6 px shadow-[10px_10px_0px_0px_#0a0a0a]">
+    <div className="bg-white flex flex-col md:flex-row border border-gray-200 rounded-lg border-2 border-black p-6 px shadow-[10px_10px_0px_0px_#0a0a0a]">
       <img
         src={photoURL}
         alt=""
@@ -17,7 +17,7 @@ const DiaryEntry = ({ photoURL, title, rating, caption }: DiaryEntryProps) => {
       />
       <div className="flex flex-col flex-1 gap-6 p-10">
         <h2 className="font-bold">{title}</h2>
-        <div className="">{rating}</div>
+        <div className="">{rating} / 5</div>
         <p>{caption}</p>
       </div>
     </div>

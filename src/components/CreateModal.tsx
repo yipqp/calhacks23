@@ -70,20 +70,16 @@ const CreateModal = ({
         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-5 bg-orange-50 rounded-2xl shadow-solid-primary
       border-2 border-black py-6 px shadow-[10px_10px_0px_0px_#0a0a0a] z-20"
       >
-        <form action="" className="flex gap-9 " onSubmit={handleSubmit}>
-          <input
-            type="file"
-            accept="image/*"
-            ref={imageInput}
-            onChange={(e) => {
-              setSelectedImage(e.target.files![0]);
-            }}
-            className="w-full h-full bg-white rounded-2xl"
-          />
-          <div className="flex flex-col gap-4">
+        <form
+          action=""
+          className="flex gap-11 flex-col md:flex-row"
+          onSubmit={handleSubmit}
+        >
+          <div className="flex flex-col gap-5">
             <label className="flex flex-col gap-3 font-inter text-base text-black">
               Title
               <input
+                className="p-3"
                 type="text"
                 value={entryData.title}
                 onChange={(e) => {
@@ -111,13 +107,14 @@ const CreateModal = ({
             <label className="flex flex-col gap-3 font-inter text-base text-black ">
               Entry
               <textarea
+                className="p-3"
                 name=""
                 id=""
                 cols="30"
                 rows="10"
-                value={entryData.entry}
+                value={entryData.caption}
                 onChange={(e) => {
-                  setEntryData({ ...entryData, entry: e.target.value });
+                  setEntryData({ ...entryData, caption: e.target.value });
                 }}
               ></textarea>
             </label>
@@ -138,6 +135,18 @@ const CreateModal = ({
                 Save
               </button>
             </div>
+            <label className="flex flex-col gap-2">
+              Upload Picture
+              <input
+                type="file"
+                accept="image/*"
+                ref={imageInput}
+                onChange={(e) => {
+                  setSelectedImage(e.target.files![0]);
+                }}
+                className="w-full block bg-white text-md  border rounded-lg cursor-pointer"
+              />
+            </label>
           </div>
         </form>
       </div>

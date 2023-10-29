@@ -6,7 +6,7 @@ import { api } from "../../convex/_generated/api";
 const DiaryContainer = () => {
   const entriesData = useQuery(api.entries.queryEntries);
   return (
-    <div className="flex flex-col-reverse justify-center p-20 self-center gap-40 md:w-2/3 bg-orange-50">
+    <div className="flex flex-col-reverse justify-center p-20 self-center gap-40 md:w-4/5 bg-orange-50">
       {entriesData?.map((entry, i) => {
         let url = entry.photoURL;
         if (url == null || url.length < 1) url = "";

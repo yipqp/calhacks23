@@ -11,10 +11,11 @@ const convex = new ConvexReactClient(
   "https://efficient-basilisk-885.convex.cloud"
 );
 
-if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
+const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
+
+if (!clerkPubKey) {
   throw new Error("Missing Publishable Key");
 }
-const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
