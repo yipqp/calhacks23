@@ -9,13 +9,13 @@ interface DiaryEntryProps {
 
 const DiaryEntry = ({ photoURL, title, rating, caption }: DiaryEntryProps) => {
   return (
-    <div className="flex flex-col lg:flex-row border border-gray-200 rounded-lg">
+    <div className="bg-white flex flex-col lg:flex-row border border-gray-200 rounded-lg border-2 border-black p-6 px shadow-[10px_10px_0px_0px_#0a0a0a]">
       <img
         src={photoURL}
         alt=""
-        className=" aspect-square object-cover flex-1 h-96"
+        className=" aspect-square object-cover flex-1 h-96 justify-items-center"
       />
-      <div className="flex flex-col flex-1 gap-5 p-10">
+      <div className="flex flex-col flex-1 gap-6 p-10">
         <h2 className="font-bold">{title}</h2>
         <div className="">{rating}</div>
         <p>{caption}</p>
