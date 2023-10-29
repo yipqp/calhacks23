@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 
@@ -31,7 +31,7 @@ const CreateModal = ({
   const addEntry = useMutation(api.entries.addEntry);
   const generateUploadUrl = useMutation(api.entries.generateUploadUrl);
 
-  const handleUpload = async (e) => {
+  const handleUpload = async (e: React.FormEvent) => {
     e.preventDefault();
     const postUrl = await generateUploadUrl();
     const result = await fetch(postUrl, {
@@ -45,7 +45,7 @@ const CreateModal = ({
     return storageId;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     toggleModal(false);
     const storageId = await handleUpload(e);
@@ -110,8 +110,8 @@ const CreateModal = ({
                 className="p-3"
                 name=""
                 id=""
-                cols="30"
-                rows="10"
+                cols={30}
+                rows={10}
                 value={entryData.caption}
                 onChange={(e) => {
                   setEntryData({ ...entryData, caption: e.target.value });

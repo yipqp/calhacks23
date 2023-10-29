@@ -1,4 +1,3 @@
-import React from "react";
 import DiaryEntry from "./DiaryEntry";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";

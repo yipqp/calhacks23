@@ -1,5 +1,3 @@
-import React from "react";
-
 interface DiaryEntryProps {
   photoURL: string;
   title: string;

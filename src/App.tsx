@@ -30,7 +30,11 @@ function App() {
             Create{" "}
           </a>
           <SignedIn>
-            <NavLink name="My Diary" to="my-diary"></NavLink>
+            <NavLink
+              name="My Diary"
+              to="my-diary"
+              children={undefined}
+            ></NavLink>
             <NavLink name="" to="/">
               <SignOutButton />
             </NavLink>
