@@ -1,17 +1,17 @@
 import React from "react";
 
 interface DiaryEntryProps {
-  photoUrl: string;
+  photoURL: string;
   title: string;
   rating: number;
   caption: string;
 }
 
-const DiaryEntry = ({ photoUrl, title, rating, caption }: DiaryEntryProps) => {
+const DiaryEntry = ({ photoURL, title, rating, caption }: DiaryEntryProps) => {
   return (
     <div className="flex flex-col lg:flex-row border border-gray-200 rounded-lg">
       <img
-        src={photoUrl}
+        src={photoURL}
         alt=""
         className=" aspect-square object-cover flex-1 h-96"
       />
