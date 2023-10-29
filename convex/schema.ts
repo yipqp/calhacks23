@@ -7,9 +7,12 @@ export default defineSchema({
     rating: v.float64(),
     title: v.string(),
     storageId: v.string(),
-  }),
+    userId: v.string(),
+  }).index("by_userId", ["userId"]),
+
   users: defineTable({
-    name: v.string(),
+    user: v.string(),
+    email: v.string(),
     tokenIdentifier: v.string(),
   }).index("by_token", ["tokenIdentifier"]),
 });

@@ -8,6 +8,7 @@ export const addEntry = mutation({
     rating: v.number(),
     caption: v.string(),
     storageId: v.string(),
+    userId: v.string(),
   },
 
   handler: async (ctx, args) => {
@@ -16,6 +17,7 @@ export const addEntry = mutation({
       rating: args.rating,
       caption: args.caption,
       storageId: args.storageId,
+      userId: args.userId,
     };
 
     const entryID = await ctx.db.insert("entries", entry);
@@ -23,9 +25,34 @@ export const addEntry = mutation({
   },
 });
 
-export const queryEntries = query({
+export const getAllEntries = query({
   handler: async (ctx) => {
     const entries = await ctx.db.query("entries").collect();
+    return Promise.all(
+      entries.map(async (entry) => {
+        const url = await ctx.storage.getUrl(entry.storageId);
+        return url
+          ? { ...entry, ...{ photoURL: url } }
+          : { ...entry, ...{ photoURL: "blank.jpg" } };
+      })
+    );
+  },
+});
+
+export const getUserEntries = query({
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    console.log(identity);
+
+    if (!identity) {
+      return [];
+    }
+
+    const entries = await ctx.db
+      .query("entries")
+      .withIndex("by_userId", (q) => q.eq("userId", identity.tokenIdentifier))
+      .collect();
+
     return Promise.all(
       entries.map(async (entry) => {
         const url = await ctx.storage.getUrl(entry.storageId);

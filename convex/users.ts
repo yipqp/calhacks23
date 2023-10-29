@@ -1,6 +1,6 @@
 import { mutation } from "./_generated/server";
 
-import { useUser } from "@clerk/clerk-react";
+import { useAuth, useUser } from "@clerk/clerk-react";
 import { useConvexAuth } from "convex/react";
 import { useEffect, useState } from "react";
 import { useMutation } from "convex/react";
@@ -9,12 +9,14 @@ import { Id } from "../convex/_generated/dataModel";
 
 export default function useStoreUserEffect() {
   const { isAuthenticated } = useConvexAuth();
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
 
   const [userId, setUserId] = useState<Id<"users"> | null>(null);
   const storeUser = useMutation(api.users.store);
 
   useEffect(() => {
+    user?.reload();
+    console.log("auth status" + isAuthenticated);
     if (!isAuthenticated) {
       return;
     }
@@ -44,26 +46,27 @@ export const store = mutation({
       .unique();
 
     if (user !== null) {
-      if (user.name !== identity.name) {
-        await ctx.db.patch(user._id, { name: identity.name });
+      if (user.user !== identity.name) {
+        await ctx.db.patch(user._id, { user: identity.name });
+      }
+      if (user.email !== identity.email) {
+        await ctx.db.patch(user._id, { email: identity.email });
       }
       return user._id;
     }
 
     return await ctx.db.insert("users", {
-      name: identity.name!,
+      user: identity.name!,
+      email: identity.email!,
       tokenIdentifier: identity.tokenIdentifier,
     });
   },
 });
 
-export const myMutation = mutation({
-  args: {
-    // ...
-  },
-  handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
-    const { tokenIdentifier, name, email } = identity!;
-    //...
-  },
-});
+// export const getUserID = mutation({
+//   handler: async (ctx) => {
+//     const identity = await ctx.auth.getUserIdentity();
+//     const { tokenIdentifier, name, email } = identity!;
+//     //...
+//   },
+// });

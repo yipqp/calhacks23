@@ -2,19 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
-import { ConvexProvider, ConvexReactClient } from "convex/react";
+import { ConvexReactClient } from "convex/react";
 import { ClerkProvider, useAuth } from "@clerk/clerk-react";
 import { ConvexProviderWithClerk } from "convex/react-clerk";
 import { useNavigate } from "react-router-dom";
 
-const convex = new ConvexReactClient(
-  "https://efficient-basilisk-885.convex.cloud"
-);
+const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string);
+const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
 
-if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
+if (!clerkPubKey) {
   throw new Error("Missing Publishable Key");
 }
-const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

@@ -9,11 +9,13 @@ import {
   SignOutButton,
   SignedIn,
   SignedOut,
+  useAuth,
 } from "@clerk/clerk-react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MyDiary from "./components/MyDiary";
 
 function App() {
+  const { isSignedIn } = useAuth();
   const [showCreate, setShowCreate] = useState(false);
 
   return (
@@ -23,20 +25,24 @@ function App() {
           <CreateModal toggleModal={setShowCreate}></CreateModal>
         ) : null}
         <NavBar>
-          <a
-            onClick={() => setShowCreate(true)}
-            className="hover:cursor-pointer"
-          >
-            Create{" "}
-          </a>
+          {isSignedIn ? (
+            <a
+              onClick={() => setShowCreate(true)}
+              className="hover:cursor-pointer"
+            >
+              Create
+            </a>
+          ) : null}
+          <NavLink name="My Diary" to="my-diary">
+            <></>
+          </NavLink>
           <SignedIn>
-            <NavLink name="My Diary" to="my-diary"></NavLink>
             <NavLink name="" to="/">
               <SignOutButton />
             </NavLink>
           </SignedIn>
           <SignedOut>
-            <SignInButton mode="modal" />
+            <SignInButton mode="modal" redirectUrl="/" />
           </SignedOut>
         </NavBar>
         <Routes>

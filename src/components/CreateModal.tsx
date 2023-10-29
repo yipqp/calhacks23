@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
+import useStoreUserEffect from "../../convex/users";
 
 const CreateModal = ({
   toggleModal,
@@ -12,13 +13,17 @@ const CreateModal = ({
     rating: number;
     caption: string;
     storageId: string;
+    userId: string;
   }
+
+  const userId = useStoreUserEffect();
 
   const [entryData, setEntryData] = useState<EntryData>({
     title: "",
     rating: 0,
     caption: "",
     storageId: "",
+    userId: "",
   });
 
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -49,12 +54,14 @@ const CreateModal = ({
     e.preventDefault();
     toggleModal(false);
     const storageId = await handleUpload(e);
-    await addEntry({ ...entryData, storageId: storageId });
+    if (userId === null) throw new Error("Failed to get userId");
+    await addEntry({ ...entryData, storageId: storageId, userId: userId });
     setEntryData({
       title: "",
       rating: 0,
       caption: "",
       storageId: "",
+      userId: "",
     });
   };
 
