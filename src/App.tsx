@@ -10,26 +10,41 @@ import {
   SignedIn,
   SignedOut,
 } from "@clerk/clerk-react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import MyDiary from "./components/MyDiary";
 
 function App() {
   const [showCreate, setShowCreate] = useState(false);
+
   return (
-    <div className="flex flex-col bg-orange-50">
-      {showCreate ? (
-        <CreateModal action={() => setShowCreate(false)}></CreateModal>
-      ) : null}
-      <NavBar>
-        <NavLink name="Create" action={() => setShowCreate(true)}></NavLink>
-        <SignedIn>
-          <NavLink name="Your Diary" action={() => {}}></NavLink>
-          <SignOutButton />
-        </SignedIn>
-        <SignedOut>
-          <SignInButton mode="modal" />
-        </SignedOut>
-      </NavBar>
-      <DiaryContainer></DiaryContainer>
-    </div>
+    <BrowserRouter>
+      <div className="flex flex-col bg-orange-50">
+        {showCreate ? (
+          <CreateModal toggleModal={setShowCreate}></CreateModal>
+        ) : null}
+        <NavBar>
+          <a
+            onClick={() => setShowCreate(true)}
+            className="hover:cursor-pointer"
+          >
+            Create{" "}
+          </a>
+          <SignedIn>
+            <NavLink name="My Diary" to="my-diary"></NavLink>
+            <NavLink name="" to="/">
+              <SignOutButton />
+            </NavLink>
+          </SignedIn>
+          <SignedOut>
+            <SignInButton mode="modal" />
+          </SignedOut>
+        </NavBar>
+        <Routes>
+          <Route path="/" element={<DiaryContainer />} />
+          <Route path="/my-diary/" element={<MyDiary />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 

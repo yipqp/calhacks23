@@ -1,7 +1,21 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const NavLink = ({ name, action }: { name: string; action: () => void }) => {
-  return <button onClick={action}>{name}</button>;
+const NavLink = ({
+  name,
+  to,
+  children,
+}: {
+  name: string;
+  to: string;
+  children: React.ReactNode;
+}) => {
+  return (
+    <Link to={to}>
+      {name}
+      {children}
+    </Link>
+  );
 };
 
 export default NavLink;
