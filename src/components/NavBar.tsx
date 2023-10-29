@@ -7,7 +7,7 @@ const NavBar = ({ children }: { children: React.ReactNode }) => {
       <div className="flex items-center flex-1 gap-3">
         <img width={80} src={logo}></img>
         <h1 className="font-inter text-xl md:text-2xl font-semibold bottom-0">
-          <Link to="/">FoodFlicks</Link>
+          <Link to="/">FoodieFlicks</Link>
         </h1>
       </div>
       <div className="flex items-center justify-between gap-5 md:gap-16">
