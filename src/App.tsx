@@ -27,7 +27,7 @@ function App() {
             onClick={() => setShowCreate(true)}
             className="hover:cursor-pointer"
           >
-            Create{" "}
+            Create
           </a>
           <SignedIn>
             <NavLink

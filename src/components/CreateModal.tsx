@@ -67,7 +67,7 @@ const CreateModal = ({
         }}
       ></div>
       <div
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-5 bg-orange-50 rounded-2xl shadow-solid-primary
+        className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-5 bg-orange-50 rounded-2xl shadow-solid-primary
       border-2 border-black py-6 px shadow-[10px_10px_0px_0px_#0a0a0a] z-20"
       >
         <form
@@ -91,8 +91,6 @@ const CreateModal = ({
               Rating
               <input
                 type="range"
-                name=""
-                id=""
                 min={0}
                 max={5}
                 value={entryData.rating}
@@ -108,10 +106,8 @@ const CreateModal = ({
               Entry
               <textarea
                 className="p-3"
-                name=""
-                id=""
-                cols={30}
-                rows={10}
+                cols={10}
+                rows={5}
                 value={entryData.caption}
                 onChange={(e) => {
                   setEntryData({ ...entryData, caption: e.target.value });
